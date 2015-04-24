@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Using OMDb API</title>
+		<link href='http://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
+		<script type="text/javascript" src="jquery-latest.min.js"></script>
+		<script type="text/javascript">
+			function getMovieDetails()	{
+			
+				var movieName = $("#movieName").val();
+				//alert("Called");
+				// run ajax request
+				$.ajax({
+					type: "GET",
+					dataType : "json",
+					cache : false,
+					url : "GetMovieDetails.cfm?movieTitle=" + movieName,
+					success: function (data) {
+							
+							$("#movieDetails").empty();
+							
+							if(typeof data.Title === "undefined")	{
+							
+								var html = "<p style='text-align:center'><b>No movie exists with this name in the records</b></p>";
+							}
+								
+							else {
+								var html = "<table style='width:100%' border='1px solid black'><tbody>";
+								html += "<tr>";
+								
+								//Movie title
+								html += "<td><b>" + "Movie Title" + "</b></td>";
+								html += "<td><b>" + data.Title + "</b></td>";
+								html += "</tr>";
+								
+								//Year of release
+								html += "<td><b>" + "Year of release" + "</b></td>";
+								html += "<td><b>" + data.Year + "</b></td>";
+								html += "</tr>";
+								
+								//Rated as
+								html += "<td><b>" + "Rated As" + "</b></td>";
+								html += "<td><b>" + data.Rated + "</b></td>";
+								html += "</tr>";
+								
+								//Release date
+								html += "<td><b>" + "Release date" + "</b></td>";
+								html += "<td><b>" + data.Released + "</b></td>";
+								html += "</tr>";
+								
+								//Duration of the movie
+								html += "<td><b>" + "Duration" + "</b></td>";
+								html += "<td><b>" + data.Runtime + "</b></td>";
+								html += "</tr>";
+								
+								//Genre
+								html += "<td><b>" + "Genre" + "</b></td>";
+								html += "<td><b>" + data.Genre + "</b></td>";
+								html += "</tr>";
+								
+								//Director
+								html += "<td><b>" + "Director" + "</b></td>";
+								html += "<td><b>" + data.Director + "</b></td>";
+								html += "</tr>";
+								
+								//Writer
+								html += "<td><b>" + "Writer" + "</b></td>";
+								html += "<td><b>" + data.Writer + "</b></td>";
+								html += "</tr>";
+								
+								//Actors
+								html += "<td><b>" + "Actors" + "</b></td>";
+								html += "<td><b>" + data.Actors + "</b></td>";
+								html += "</tr>";
+								
+								//Plot
+								html += "<td><b>" + "Plot" + "</b></td>";
+								html += "<td><b>" + data.Plot + "</b></td>";
+								html += "</tr>";
+								
+								//Language
+								html += "<td><b>" + "Language" + "</b></td>";
+								html += "<td><b>" + data.Language + "</b></td>";
+								html += "</tr>";
+								
+								//Country
+								html += "<td><b>" + "Country" + "</b></td>";
+								html += "<td><b>" + data.Country + "</b></td>";
+								html += "</tr>";
+								
+								//Awards
+								html += "<td><b>" + "Awards" + "</b></td>";
+								html += "<td><b>" + data.Awards + "</b></td>";
+								html += "</tr>";
+								
+								//imdb Rating
+								html += "<td><b>" + "imdb Rating" + "</b></td>";
+								html += "<td><b>" + data.imdbRating + "</b></td>";
+								html += "</tr>";
+								
+								//imdb Votes
+								html += "<td><b>" + "imdb Votes" + "</b></td>";
+								html += "<td><b>" + data.imdbVotes + "</b></td>";
+								html += "</tr>";
+								
+								//imdbID
+								html += "<td><b>" + "imdb ID" + "</b></td>";
+								html += "<td><b>" + data.imdbID + "</b></td>";
+								html += "</tr>";
+								
+								html += "</tbody></table>";
+							}
+							
+							$("#movieDetails").append(html);
+							
+					}
+				});
+			}
+		</script>
+	</head>
+	<body>
+		<h1 style="text-align:center;font-family: 'Droid Serif', serif;">Get movie information here</h1>
+		<br />
+		<div style="text-align:center">
+			<input type="text" id="movieName" name="movieName" size="30" />
+			<button type="button" onClick="javascript:getMovieDetails()">Search</button>
+		</div>
+		<br />
+		<br />
+		<div id="movieDetails" style="width:600px;margin-left:auto;margin-right:auto;font-family: 'Droid Serif', serif;">
+		</div>
+	</body>
+</html>
